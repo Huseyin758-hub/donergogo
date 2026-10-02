@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DönerGo Admin</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f3f3f3;
+    color:#171717;
+}
+
+/* GİRİŞ */
+
+.login{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    background:linear-gradient(135deg,#111,#450707);
+}
+
+.login-box{
+    background:white;
+    width:100%;
+    max-width:380px;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 35px rgba(0,0,0,.3);
+}
+
+.login-logo{
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.login-logo span{
+    color:#e21b23;
+}
+
+.login-box p{
+    text-align:center;
+    color:#777;
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    margin-bottom:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:16px;
+    outline:none;
+}
+
+.login-button{
+    width:100%;
+    padding:15px;
+    border:0;
+    border-radius:10px;
+    background:#e21b23;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* PANEL */
+
+.admin{
+    display:none;
+}
+
+header{
+    background:#111;
+    color:white;
+    padding:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#e21b23;
+}
+
+.logout{
+    border:0;
+    background:#e21b23;
+    color:white;
+    padding:9px 13px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px 15px;
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+/* İSTATİSTİKLER */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.stat{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+.stat-title{
+    color:#777;
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.stat-value{
+    font-size:27px;
+    font-weight:bold;
+}
+
+/* SİPARİŞ */
+
+.orders-title{
+    margin-bottom:15px;
+}
+
+.order{
+    background:white;
+    border-radius:15px;
+    padding:18px;
+    margin-bottom:15px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+.order-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.order-number{
+    font-weight:bold;
+}
+
+.status{
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.new{
+    background:#ffe5e5;
+    color:#d00000;
+}
+
+.preparing{
+    background:#fff1c7;
+    color:#8a6500;
+}
+
+.delivery{
+    background:#dceeff;
+    color:#075a9c;
+}
+
+.done{
+    background:#dff7e5;
+    color:#08752c;
+}
+
+.customer{
+    line-height:1.8;
+    margin-bottom:12px;
+}
+
+.products{
+    border-top:1px solid #eee;
+    border-bottom:1px solid #eee;
+    padding:12px 0;
+    margin-bottom:12px;
+}
+
+.total{
+    font-size:20px;
+    font-weight:bold;
+    color:#e21b23;
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:15px;
+}
+
+.actions button{
+    border:0;
+    padding:10px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    background:#111;
+    color:white;
+}
+
+.empty{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    color:#777;
+}
+
+/* MOBİL */
+
+@media(max-width:600px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .order-top{
+        flex-direction:column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+
+<!-- GİRİŞ -->
+
+<div class="login" id="login">
+
+    <div class="login-box">
+
+        <div class="login-logo">
+            🌯 <span>Döner</span>Go
+        </div>
+
+        <p>Admin Paneli</p>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Kullanıcı adı"
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Şifre"
+        >
+
+        <button
+            class="login-button"
+            onclick="login()"
+        >
+            Giriş Yap
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ADMIN -->
+
+<div class="admin" id="admin">
+
+<header>
+
+    <div class="logo">
+        🌯 <span>Döner</span>Go Admin
+    </div>
+
+    <button
+        class="logout"
+        onclick="logout()"
+    >
+        Çıkış
+    </button>
+
+</header>
+
+
+<div class="container">
+
+    <h1>📊 Yönetim Paneli</h1>
+
+
+    <!-- İSTATİSTİKLER -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-title">
+                Bugünkü Sipariş
+            </div>
+
+            <div
+                class="stat-value"
+                id="orderCount"
+            >
+                3
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-title">
+                Bugünkü Ciro
+            </div>
+
+            <div
+                class="stat-value"
+                id="revenue"
+            >
+                0 TL
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-title">
+                Bekleyen Sipariş
+            </div>
+
+            <div
+                class="stat-value"
+                id="pending"
+            >
+                2
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <h2 class="orders-title">
+        📦 Siparişler
+    </h2>
+
+
+    <div id="orders"></div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* DEMO GİRİŞ */
+
+function login(){
+
+    let username =
+        document.getElementById("username").value;
+
+    let password =
+        document.getElementById("password").value;
+
+
+    /*
+       DEMO KULLANICI
+
+       Kullanıcı adı:
+       admin
+
+       Şifre:
+       1234
+    */
+
+    if(
+        username === "admin" &&
+        password === "1234"
+    ){
+
+        document.getElementById("login").style.display =
+            "none";
+
+        document.getElementById("admin").style.display =
+            "block";
+
+    }else{
+
+        alert("Kullanıcı adı veya şifre yanlış.");
+
+    }
+
+}
+
+
+/* ÇIKIŞ */
+
+function logout(){
+
+    document.getElementById("admin").style.display =
+        "none";
+
+    document.getElementById("login").style.display =
+        "flex";
+
+}
+
+
+/* DEMO SİPARİŞLER */
+
+let orders = [
+
+    {
+        number:"#1003",
+        name:"Ahmet Yılmaz",
+        phone:"0532 111 22 33",
+        address:"İzmir / Karşıyaka",
+        product:"150 g Tavuk Döner x 2",
+        total:440,
+        status:"new"
+    },
+
+    {
+        number:"#1002",
+        name:"Mehmet Kaya",
+        phone:"0544 222 33 44",
+        address:"İzmir / Bornova",
+        product:"100 g Tavuk Döner x 2",
+        total:360,
+        status:"preparing"
+    },
+
+    {
+        number:"#1001",
+        name:"Ali Demir",
+        phone:"0555 333 44 55",
+        address:"İzmir / Konak",
+        product:"100 g Tavuk Döner x 1",
+        total:180,
+        status:"delivery"
+    }
+
+];
+
+
+function statusText(status){
+
+    if(status === "new")
+        return "Yeni Sipariş";
+
+    if(status === "preparing")
+        return "Hazırlanıyor";
+
+    if(status === "delivery")
+        return "Yolda";
+
+    if(status === "done")
+        return "Teslim Edildi";
+
+}
+
+
+function renderOrders(){
+
+    let container =
+        document.getElementById("orders");
+
+    container.innerHTML = "";
+
+
+    orders.forEach(function(order,index){
+
+        let div =
+            document.createElement("div");
+
+        div.className = "order";
+
+
+        div.innerHTML = `
+
+            <div class="order-top">
+
+                <div class="order-number">
+                    Sipariş ${order.number}
+                </div>
+
+                <div class="status ${order.status}">
+                    ${statusText(order.status)}
+                </div>
+
+            </div>
+
+
+            <div class="customer">
+
+                👤 <b>${order.name}</b><br>
+
+                📞 ${order.phone}<br>
+
+                📍 ${order.address}
+
+            </div>
+
+
+            <div class="products">
+
+                🍗 ${order.product}
+
+            </div>
+
+
+            <div class="total">
+
+                💰 ${order.total} TL
+
+            </div>
+
+
+            <div class="actions">
+
+                <button onclick="changeStatus(${index},'preparing')">
+                    👨‍🍳 Hazırlanıyor
+                </button>
+
+                <button onclick="changeStatus(${index},'delivery')">
+                    🛵 Yolda
+                </button>
+
+                <button onclick="changeStatus(${index},'done')">
+                    ✅ Teslim Edildi
+                </button>
+
+            </div>
+
+        `;
+
+
+        container.appendChild(div);
+
+    });
+
+
+    updateStats();
+
+}
+
+
+function changeStatus(index,status){
+
+    orders[index].status = status;
+
+    renderOrders();
+
+}
+
+
+function updateStats(){
+
+    let revenue = 0;
+
+    let pending = 0;
+
+
+    orders.forEach(function(order){
+
+        revenue += order.total;
+
+        if(order.status !== "done"){
+            pending++;
+        }
+
+    });
+
+
+    document.getElementById("orderCount").textContent =
+        orders.length;
+
+    document.getElementById("revenue").textContent =
+        revenue + " TL";
+
+    document.getElementById("pending").textContent =
+        pending;
+
+}
+
+
+renderOrders();
+
+</script>
+
+</body>
+</html>
