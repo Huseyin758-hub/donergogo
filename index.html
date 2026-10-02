@@ -3,85 +3,154 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>DönerGo</title>
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f5f5f5;
+  background: #f4f4f4;
+  color: #222;
 }
 
 header {
   background: #d71920;
   color: white;
   text-align: center;
-  padding: 25px;
+  padding: 28px 15px;
+}
+
+.logo {
+  font-size: 38px;
+  font-weight: bold;
+}
+
+header p {
+  margin: 8px 0 0;
+  font-size: 16px;
 }
 
 .container {
-  max-width: 600px;
+  max-width: 650px;
   margin: auto;
   padding: 15px;
 }
 
 .card {
   background: white;
+  border-radius: 18px;
   padding: 20px;
-  margin-bottom: 15px;
-  border-radius: 15px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  margin-bottom: 18px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.08);
+}
+
+.card h2 {
+  margin-top: 0;
 }
 
 .product {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin: 20px 0;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.product:last-child {
+  border-bottom: none;
+}
+
+.product-info {
+  flex: 1;
+}
+
+.product-info h3 {
+  margin: 0 0 7px;
+  font-size: 20px;
 }
 
 .price {
   color: #d71920;
-  font-weight: bold;
   font-size: 19px;
+  font-weight: bold;
 }
 
 .quantity {
-  width: 70px;
-  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quantity button {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+  background: #d71920;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.quantity span {
+  min-width: 25px;
+  text-align: center;
   font-size: 18px;
+  font-weight: bold;
 }
 
 .total {
   text-align: center;
   font-size: 24px;
   font-weight: bold;
-  margin-top: 25px;
+  padding-top: 20px;
+  color: #d71920;
 }
 
-input, textarea {
+input,
+textarea {
   width: 100%;
-  padding: 13px;
-  margin: 8px 0 15px;
+  padding: 14px;
+  margin: 7px 0 14px;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 16px;
-  box-sizing: border-box;
 }
 
 textarea {
   height: 90px;
+  resize: none;
 }
 
-button {
+.order-button {
   width: 100%;
-  padding: 15px;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
   background: #25D366;
   color: white;
-  border: 0;
-  border-radius: 10px;
   font-size: 18px;
   font-weight: bold;
+}
+
+.empty {
+  text-align: center;
+  color: #777;
+  padding: 10px;
+}
+
+footer {
+  text-align: center;
+  color: #777;
+  padding: 20px;
+  font-size: 14px;
 }
 </style>
 </head>
@@ -89,133 +158,77 @@ button {
 <body>
 
 <header>
-<h1>🌯 DönerGo</h1>
-<p>Sıcak • Hızlı • Lezzetli</p>
+  <div class="logo">🌯 DönerGo</div>
+  <p>Sıcak • Hızlı • Lezzetli</p>
 </header>
 
 <div class="container">
 
-<div class="card">
+  <div class="card">
 
-<h2>Menü</h2>
+    <h2>🌯 Menümüz</h2>
 
-<div class="product">
-<div>
-<h3>100 gr Tavuk Döner</h3>
-<div class="price">180 TL</div>
+    <div class="product">
+
+      <div class="product-info">
+        <h3>100 gr Tavuk Döner</h3>
+        <div class="price">180 TL</div>
+      </div>
+
+      <div class="quantity">
+        <button onclick="azalt(100)">−</button>
+        <span id="adet100">0</span>
+        <button onclick="arttir(100)">+</button>
+      </div>
+
+    </div>
+
+    <div class="product">
+
+      <div class="product-info">
+        <h3>150 gr Tavuk Döner</h3>
+        <div class="price">220 TL</div>
+      </div>
+
+      <div class="quantity">
+        <button onclick="azalt(150)">−</button>
+        <span id="adet150">0</span>
+        <button onclick="arttir(150)">+</button>
+      </div>
+
+    </div>
+
+    <div class="total">
+      Toplam: <span id="toplam">0</span> TL
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>🛒 Sipariş Bilgileri</h2>
+
+    <input
+      id="isim"
+      type="text"
+      placeholder="Adınız Soyadınız">
+
+    <input
+      id="telefon"
+      type="tel"
+      placeholder="Telefon Numaranız">
+
+    <textarea
+      id="adres"
+      placeholder="Teslimat adresiniz"></textarea>
+
+    <button
+      class="order-button"
+      onclick="whatsappSiparis()">
+      📲 WhatsApp'tan Sipariş Ver
+    </button>
+
+  </div>
+
 </div>
-
-<input
-type="number"
-id="adet100"
-class="quantity"
-min="0"
-value="0"
-inputmode="numeric">
-</div>
-
-<div class="product">
-<div>
-<h3>150 gr Tavuk Döner</h3>
-<div class="price">220 TL</div>
-</div>
-
-<input
-type="number"
-id="adet150"
-class="quantity"
-min="0"
-value="0"
-inputmode="numeric">
-</div>
-
-<div class="total">
-Toplam: <span id="toplam">0</span> TL
-</div>
-
-</div>
-
-<div class="card">
-
-<h2>Sipariş Bilgileri</h2>
-
-<input id="isim" type="text" placeholder="Adınız Soyadınız">
-
-<input id="telefon" type="tel" placeholder="Telefon Numaranız">
-
-<textarea id="adres" placeholder="Teslimat adresiniz"></textarea>
-
-<button onclick="whatsappSiparis()">
-📲 WhatsApp'tan Sipariş Ver
-</button>
-
-</div>
-
-</div>
-
-<script>
-
-function hesapla() {
-
-  const adet100 = parseInt(document.getElementById("adet100").value) || 0;
-  const adet150 = parseInt(document.getElementById("adet150").value) || 0;
-
-  const toplam = (adet100 * 180) + (adet150 * 220);
-
-  document.getElementById("toplam").textContent = toplam;
-}
-
-document.getElementById("adet100").addEventListener("input", hesapla);
-document.getElementById("adet150").addEventListener("input", hesapla);
-
-function whatsappSiparis() {
-
-  const adet100 = parseInt(document.getElementById("adet100").value) || 0;
-  const adet150 = parseInt(document.getElementById("adet150").value) || 0;
-
-  const isim = document.getElementById("isim").value;
-  const telefon = document.getElementById("telefon").value;
-  const adres = document.getElementById("adres").value;
-
-  const toplam = (adet100 * 180) + (adet150 * 220);
-
-  if (toplam === 0) {
-    alert("Lütfen en az bir ürün seçin.");
-    return;
-  }
-
-  if (!isim || !telefon || !adres) {
-    alert("Lütfen bilgilerinizi eksiksiz doldurun.");
-    return;
-  }
-
-  const mesaj =
-`🌯 DönerGo Sipariş
-
-👤 Müşteri: ${isim}
-📞 Telefon: ${telefon}
-
-📦 Sipariş:
-100 gr Tavuk Döner: ${adet100} adet
-150 gr Tavuk Döner: ${adet150} adet
-
-💰 Toplam: ${toplam} TL
-
-📍 Adres:
-${adres}`;
-
-  const whatsappNumarasi = "905XXXXXXXXX";
-
-  const url =
-    "https://wa.me/" +
-    whatsappNumarasi +
-    "?text=" +
-    encodeURIComponent(mesaj);
-
-  window.open(url, "_blank");
-}
-
-</script>
-
-</body>
-</html>
