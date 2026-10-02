@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DönerGo | Tavuk Döner</title>
+<title>DönerGo</title>
 
 <style>
 *{
@@ -15,57 +15,58 @@
 
 body{
     font-family:Arial,Helvetica,sans-serif;
-    background:#f4f4f4;
-    color:#171717;
+    background:#f7f7f7;
+    color:#151515;
+    padding-bottom:90px;
 }
 
-/* HEADER */
+/* ÜST MENÜ */
 
 header{
+    height:68px;
     background:#111;
     color:white;
-    height:65px;
-    padding:0 20px;
     display:flex;
     align-items:center;
     justify-content:space-between;
+    padding:0 18px;
     position:sticky;
     top:0;
-    z-index:100;
+    z-index:1000;
 }
 
 .logo{
     font-size:25px;
-    font-weight:800;
+    font-weight:900;
 }
 
-.logo span{
-    color:#e21b23;
+.logo b{
+    color:#e51c23;
 }
 
-.cart{
-    background:#e21b23;
-    padding:9px 15px;
+.cart-top{
+    background:#e51c23;
     border-radius:25px;
+    padding:9px 15px;
     font-weight:bold;
 }
 
 
-/* HERO */
+/* ANA BANNER */
 
 .hero{
-    min-height:300px;
-    padding:55px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
+    height:390px;
+    position:relative;
+    overflow:hidden;
     color:white;
+    display:flex;
+    align-items:flex-end;
 
-    background:
+    background-image:
     linear-gradient(
-        rgba(0,0,0,.62),
-        rgba(0,0,0,.72)
+        to top,
+        rgba(0,0,0,.88),
+        rgba(0,0,0,.15)
     ),
     url("doner.jpg");
 
@@ -74,146 +75,174 @@ header{
 }
 
 .hero-content{
-    max-width:700px;
+    padding:28px 20px 32px;
+    width:100%;
+}
+
+.badge{
+    display:inline-block;
+    background:#e51c23;
+    padding:7px 13px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:10px;
 }
 
 .hero h1{
-    font-size:42px;
-    line-height:1.1;
-    margin-bottom:15px;
-}
-
-.hero h1 span{
-    color:#e21b23;
+    font-size:39px;
+    line-height:1.05;
+    margin-bottom:10px;
 }
 
 .hero p{
-    font-size:18px;
     color:#eee;
-    margin-bottom:25px;
-}
-
-.hero-button{
-    display:inline-block;
-    background:#e21b23;
-    color:white;
-    padding:13px 24px;
-    border-radius:30px;
-    font-weight:bold;
+    font-size:15px;
 }
 
 
-/* CONTAINER */
+/* MENÜ */
 
 .container{
-    width:100%;
     max-width:1000px;
     margin:auto;
-    padding:30px 16px;
+    padding:28px 16px;
 }
 
-.title{
-    text-align:center;
-    margin-bottom:25px;
+.section-head{
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+    margin-bottom:18px;
 }
 
-.title h2{
-    font-size:28px;
-    margin-bottom:7px;
+.section-head h2{
+    font-size:27px;
 }
 
-.title p{
-    color:#777;
+.section-head span{
+    color:#888;
+    font-size:13px;
 }
 
 
-/* PRODUCTS */
+/* ÜRÜNLER */
 
 .products{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:22px;
+    gap:18px;
 }
 
 .card{
     background:white;
-    border-radius:18px;
+    border-radius:20px;
     overflow:hidden;
-    box-shadow:0 5px 20px rgba(0,0,0,.12);
+    box-shadow:0 5px 20px rgba(0,0,0,.10);
+    border:1px solid #eee;
+}
+
+.photo-wrap{
+    position:relative;
+    height:250px;
+    overflow:hidden;
 }
 
 .product-image{
     width:100%;
-    height:240px;
-    display:block;
+    height:100%;
     object-fit:cover;
+    display:block;
+    transition:transform .3s;
+}
+
+.card:hover .product-image{
+    transform:scale(1.04);
+}
+
+.weight{
+    position:absolute;
+    top:13px;
+    left:13px;
+    background:white;
+    color:#111;
+    padding:7px 11px;
+    border-radius:20px;
+    font-weight:bold;
+    font-size:13px;
+    box-shadow:0 3px 10px rgba(0,0,0,.2);
 }
 
 .card-body{
-    padding:20px;
+    padding:18px;
 }
 
-.card h3{
-    font-size:22px;
-    margin-bottom:7px;
+.card-body h3{
+    font-size:21px;
+    margin-bottom:6px;
 }
 
-.description{
+.desc{
     color:#777;
-    font-size:14px;
+    font-size:13px;
     line-height:1.5;
-    margin-bottom:15px;
+    min-height:39px;
+    margin-bottom:13px;
 }
 
-.price{
-    color:#e21b23;
-    font-size:25px;
-    font-weight:bold;
-    margin-bottom:16px;
-}
-
-
-/* QUANTITY */
-
-.quantity{
-    height:50px;
+.bottom-row{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    background:#f1f1f1;
+    gap:10px;
+}
+
+.price{
+    color:#e51c23;
+    font-size:22px;
+    font-weight:900;
+}
+
+.quantity{
+    display:flex;
+    align-items:center;
+    background:#f0f0f0;
     border-radius:12px;
-    padding:5px;
+    padding:4px;
 }
 
 .quantity button{
-    width:42px;
-    height:40px;
     border:0;
+    width:36px;
+    height:36px;
     border-radius:9px;
     background:#111;
     color:white;
-    font-size:25px;
+    font-size:22px;
     cursor:pointer;
 }
 
 .quantity button:active{
-    transform:scale(.92);
+    transform:scale(.9);
 }
 
 .count{
-    font-size:20px;
+    width:32px;
+    text-align:center;
     font-weight:bold;
+    font-size:17px;
 }
 
 
-/* ORDER */
+/* SEPET */
 
 .order-box{
-    margin-top:30px;
-    background:white;
-    border-radius:18px;
+    margin-top:25px;
+    background:#111;
+    color:white;
+    border-radius:22px;
     padding:22px;
-    box-shadow:0 5px 20px rgba(0,0,0,.1);
+    box-shadow:0 8px 25px rgba(0,0,0,.18);
 }
 
 .order-title{
@@ -222,61 +251,59 @@ header{
     margin-bottom:18px;
 }
 
+.selected{
+    background:#222;
+    border-radius:14px;
+    padding:13px;
+    margin-bottom:16px;
+    color:#ddd;
+    font-size:14px;
+}
+
 input,
 textarea{
     width:100%;
-    border:1px solid #ddd;
+    background:white;
+    border:0;
     border-radius:11px;
     padding:14px;
     font-size:15px;
-    margin-bottom:12px;
+    margin-bottom:10px;
     outline:none;
 }
 
-input:focus,
-textarea:focus{
-    border-color:#e21b23;
-}
-
 textarea{
-    min-height:90px;
-    resize:vertical;
+    height:85px;
+    resize:none;
 }
-
-
-/* TOTAL */
 
 .total{
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    border-top:1px solid #ddd;
-    padding-top:18px;
-    margin-top:8px;
-    margin-bottom:18px;
+    justify-content:space-between;
+    padding:17px 0;
+    border-top:1px solid #333;
+    margin-top:5px;
 }
 
-.total span{
-    font-size:18px;
-    font-weight:bold;
+.total-label{
+    color:#ccc;
 }
 
-.total strong{
-    font-size:28px;
-    color:#e21b23;
+.total-price{
+    color:#ff333b;
+    font-size:29px;
+    font-weight:900;
 }
-
-
-/* WHATSAPP */
 
 .whatsapp{
     width:100%;
     border:0;
+    border-radius:13px;
     padding:16px;
-    border-radius:12px;
     background:#25D366;
     color:white;
-    font-size:18px;
+    font-size:17px;
     font-weight:bold;
     cursor:pointer;
 }
@@ -288,434 +315,50 @@ textarea{
 .note{
     text-align:center;
     color:#888;
-    font-size:12px;
-    margin-top:12px;
+    font-size:11px;
+    margin-top:10px;
+}
+
+
+/* ALT SABİT SEPET */
+
+.bottom-cart{
+    position:fixed;
+    left:12px;
+    right:12px;
+    bottom:12px;
+    height:62px;
+    background:#e51c23;
+    color:white;
+    border-radius:17px;
+    z-index:999;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 18px;
+    box-shadow:0 8px 25px rgba(0,0,0,.3);
+}
+
+.bottom-cart-left{
+    font-weight:bold;
+}
+
+.bottom-cart-price{
+    font-size:21px;
+    font-weight:900;
 }
 
 
 /* FOOTER */
 
 footer{
-    margin-top:25px;
-    padding:25px;
-    background:#111;
-    color:#aaa;
     text-align:center;
-    font-size:13px;
+    padding:25px;
+    color:#999;
+    font-size:12px;
 }
 
 
-/* MOBILE */
+/* TELEFON */
 
-@media(max-width:650px){
-
-    .hero{
-        min-height:280px;
-    }
-
-    .hero h1{
-        font-size:34px;
-    }
-
-    .products{
-        grid-template-columns:1fr;
-    }
-
-    .product-image{
-        height:230px;
-    }
-}
-</style>
-</head>
-
-
-<body>
-
-
-<header>
-
-    <div class="logo">
-        🌯 <span>Döner</span>Go
-    </div>
-
-    <div class="cart">
-        🛒 <span id="cartCount">0</span>
-    </div>
-
-</header>
-
-
-<section class="hero">
-
-    <div class="hero-content">
-
-        <h1>
-            Gerçek Döner.<br>
-            <span>Gerçek Lezzet.</span>
-        </h1>
-
-        <p>
-            Sıcak, taze ve bol malzemeli tavuk döner.
-        </p>
-
-        <div class="hero-button">
-            Hemen Sipariş Ver
-        </div>
-
-    </div>
-
-</section>
-
-
-<div class="container">
-
-
-    <div class="title">
-
-        <h2>🌯 Menümüz</h2>
-
-        <p>
-            İstediğin döneri seç, adetini belirle.
-        </p>
-
-    </div>
-
-
-    <div class="products">
-
-
-        <!-- 100 GRAM -->
-
-        <div class="card">
-
-            <img
-                src="doner.jpg"
-                class="product-image"
-                alt="100 gram tavuk döner"
-            >
-
-            <div class="card-body">
-
-                <h3>100 g Tavuk Döner</h3>
-
-                <p class="description">
-                    Taze ekmek, nefis tavuk döner,
-                    sebzeler ve özel sos.
-                </p>
-
-                <div class="price">
-                    180 TL
-                </div>
-
-                <div class="quantity">
-
-                    <button id="minus100">
-                        −
-                    </button>
-
-                    <span
-                        class="count"
-                        id="count100"
-                    >
-                        0
-                    </span>
-
-                    <button id="plus100">
-                        +
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- 150 GRAM -->
-
-        <div class="card">
-
-            <img
-                src="doner.jpg"
-                class="product-image"
-                alt="150 gram tavuk döner"
-            >
-
-            <div class="card-body">
-
-                <h3>150 g Tavuk Döner</h3>
-
-                <p class="description">
-                    Daha bol tavuk, taze sebzeler
-                    ve özel sos.
-                </p>
-
-                <div class="price">
-                    220 TL
-                </div>
-
-                <div class="quantity">
-
-                    <button id="minus150">
-                        −
-                    </button>
-
-                    <span
-                        class="count"
-                        id="count150"
-                    >
-                        0
-                    </span>
-
-                    <button id="plus150">
-                        +
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-    <!-- SİPARİŞ -->
-
-    <div class="order-box">
-
-        <div class="order-title">
-            📦 Sipariş Bilgileri
-        </div>
-
-
-        <input
-            type="text"
-            id="name"
-            placeholder="Ad Soyad"
-        >
-
-
-        <input
-            type="tel"
-            id="phone"
-            placeholder="Telefon"
-        >
-
-
-        <textarea
-            id="address"
-            placeholder="Teslimat adresi"
-        ></textarea>
-
-
-        <div class="total">
-
-            <span>
-                Toplam
-            </span>
-
-            <strong>
-                <span id="total">0</span> TL
-            </strong>
-
-        </div>
-
-
-        <button
-            class="whatsapp"
-            id="whatsappButton"
-        >
-            WhatsApp'tan Sipariş Ver
-        </button>
-
-
-        <div class="note">
-            Siparişiniz WhatsApp üzerinden alınacaktır.
-        </div>
-
-    </div>
-
-</div>
-
-
-<footer>
-    © 2026 DönerGo — Gerçek Döner. Gerçek Lezzet.
-</footer>
-
-
-
-<script>
-
-let count100 = 0;
-let count150 = 0;
-
-const price100 = 180;
-const price150 = 220;
-
-
-function update(){
-
-    document.getElementById("count100").textContent =
-        count100;
-
-    document.getElementById("count150").textContent =
-        count150;
-
-
-    let total =
-        (count100 * price100) +
-        (count150 * price150);
-
-
-    document.getElementById("total").textContent =
-        total;
-
-
-    document.getElementById("cartCount").textContent =
-        count100 + count150;
-}
-
-
-/* 100 GRAM */
-
-document.getElementById("plus100").onclick = function(){
-
-    count100++;
-
-    update();
-};
-
-
-document.getElementById("minus100").onclick = function(){
-
-    if(count100 > 0){
-
-        count100--;
-
-    }
-
-    update();
-};
-
-
-/* 150 GRAM */
-
-document.getElementById("plus150").onclick = function(){
-
-    count150++;
-
-    update();
-};
-
-
-document.getElementById("minus150").onclick = function(){
-
-    if(count150 > 0){
-
-        count150--;
-
-    }
-
-    update();
-};
-
-
-/* WHATSAPP */
-
-document.getElementById("whatsappButton").onclick = function(){
-
-    let name =
-        document.getElementById("name").value.trim();
-
-    let phone =
-        document.getElementById("phone").value.trim();
-
-    let address =
-        document.getElementById("address").value.trim();
-
-
-    let total =
-        (count100 * price100) +
-        (count150 * price150);
-
-
-    if(count100 === 0 && count150 === 0){
-
-        alert("Lütfen en az bir ürün seçin.");
-
-        return;
-    }
-
-
-    if(
-        name === "" ||
-        phone === "" ||
-        address === ""
-    ){
-
-        alert(
-            "Lütfen ad, telefon ve adres bilgilerinizi doldurun."
-        );
-
-        return;
-    }
-
-
-    let message =
-        "🌯 DÖNERGO SİPARİŞİ%0A%0A" +
-
-        "👤 Ad Soyad: " +
-        name +
-        "%0A" +
-
-        "📞 Telefon: " +
-        phone +
-        "%0A%0A" +
-
-        "🍗 100 g Tavuk Döner: " +
-        count100 +
-        " adet%0A" +
-
-        "🍗 150 g Tavuk Döner: " +
-        count150 +
-        " adet%0A%0A" +
-
-        "💰 TOPLAM: " +
-        total +
-        " TL%0A%0A" +
-
-        "📍 Adres:%0A" +
-        address;
-
-
-    /*
-      BURAYA İLERİDE KENDİ
-      WHATSAPP NUMARANI YAZACAĞIZ.
-    */
-
-    let whatsappNumber =
-        "905XXXXXXXXX";
-
-
-    let url =
-        "https://wa.me/" +
-        whatsappNumber +
-        "?text=" +
-        message;
-
-
-    window.open(
-        url,
-        "_blank"
-    );
-};
-
-
-update();
-
-</script>
-
-</body>
-</html>
+@
