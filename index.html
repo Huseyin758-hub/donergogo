@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>DönerGo</title>
 
 <style>
@@ -151,3 +152,390 @@ header{
     margin-top:25px;
     padding:22px;
     border-radius:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
+}
+
+.order-box h2{
+    margin-bottom:18px;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:14px;
+    margin-bottom:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+    outline:none;
+}
+
+textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+.total{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:10px 0 18px;
+    padding-top:15px;
+    border-top:1px solid #ddd;
+}
+
+.total strong{
+    font-size:25px;
+    color:#e21b23;
+}
+
+.whatsapp{
+    width:100%;
+    border:0;
+    background:#25D366;
+    color:white;
+    padding:16px;
+    border-radius:12px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.whatsapp:active{
+    transform:scale(.98);
+}
+
+.note{
+    text-align:center;
+    color:#777;
+    font-size:13px;
+    margin-top:12px;
+}
+
+footer{
+    text-align:center;
+    padding:25px;
+    color:#777;
+    font-size:13px;
+}
+
+/* MOBİL */
+@media(max-width:600px){
+
+    .hero h1{
+        font-size:29px;
+    }
+
+    .products{
+        grid-template-columns:1fr;
+    }
+
+    .product-image{
+        height:220px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🌯 <span>Döner</span>Go</div>
+    <div class="cart">
+        🛒 <span id="cartCount">0</span>
+    </div>
+</header>
+
+<section class="hero">
+    <h1>Gerçek Döner.<br>Gerçek Lezzet.</h1>
+    <p>Sıcak, taze ve bol malzemeli tavuk döner.</p>
+</section>
+
+<div class="container">
+
+    <div class="section-title">
+        Menümüz
+    </div>
+
+    <div class="products">
+
+        <!-- 100 GRAM -->
+        <div class="card">
+
+            <!-- FOTOĞRAF -->
+            <img
+                class="product-image"
+                src="doner.jpg"
+                alt="100 gram tavuk döner"
+            >
+
+            <div class="card-body">
+
+                <h2>100 g Tavuk Döner</h2>
+
+                <p class="description">
+                    Taze ekmek, tavuk döner ve özel sosumuz.
+                </p>
+
+                <div class="price">
+                    180 TL
+                </div>
+
+                <div class="quantity">
+                    <button id="minus100">−</button>
+
+                    <span class="count" id="count100">0</span>
+
+                    <button id="plus100">+</button>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- 150 GRAM -->
+        <div class="card">
+
+            <!-- FOTOĞRAF -->
+            <img
+                class="product-image"
+                src="doner.jpg"
+                alt="150 gram tavuk döner"
+            >
+
+            <div class="card-body">
+
+                <h2>150 g Tavuk Döner</h2>
+
+                <p class="description">
+                    Daha bol tavuk, taze sebzeler ve özel sos.
+                </p>
+
+                <div class="price">
+                    220 TL
+                </div>
+
+                <div class="quantity">
+                    <button id="minus150">−</button>
+
+                    <span class="count" id="count150">0</span>
+
+                    <button id="plus150">+</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- SİPARİŞ -->
+    <div class="order-box">
+
+        <h2>📦 Sipariş Bilgileri</h2>
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Ad Soyad"
+        >
+
+        <input
+            type="tel"
+            id="phone"
+            placeholder="Telefon"
+        >
+
+        <textarea
+            id="address"
+            placeholder="Adres"
+        ></textarea>
+
+        <div class="total">
+
+            <span>Toplam</span>
+
+            <strong>
+                <span id="total">0</span> TL
+            </strong>
+
+        </div>
+
+        <button
+            class="whatsapp"
+            id="whatsappButton"
+        >
+            WhatsApp'tan Sipariş Ver
+        </button>
+
+        <div class="note">
+            Siparişiniz WhatsApp üzerinden alınacaktır.
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    © 2026 DönerGo - Gerçek Döner. Gerçek Lezzet.
+</footer>
+
+
+<script>
+
+let count100 = 0;
+let count150 = 0;
+
+const price100 = 180;
+const price150 = 220;
+
+const count100Element =
+    document.getElementById("count100");
+
+const count150Element =
+    document.getElementById("count150");
+
+const totalElement =
+    document.getElementById("total");
+
+const cartCountElement =
+    document.getElementById("cartCount");
+
+
+function update(){
+
+    count100Element.textContent = count100;
+    count150Element.textContent = count150;
+
+    let total =
+        (count100 * price100) +
+        (count150 * price150);
+
+    totalElement.textContent = total;
+
+    cartCountElement.textContent =
+        count100 + count150;
+}
+
+
+/* 100 GRAM */
+
+document.getElementById("plus100").onclick = function(){
+
+    count100++;
+
+    update();
+};
+
+
+document.getElementById("minus100").onclick = function(){
+
+    if(count100 > 0){
+        count100--;
+    }
+
+    update();
+};
+
+
+/* 150 GRAM */
+
+document.getElementById("plus150").onclick = function(){
+
+    count150++;
+
+    update();
+};
+
+
+document.getElementById("minus150").onclick = function(){
+
+    if(count150 > 0){
+        count150--;
+    }
+
+    update();
+};
+
+
+/* WHATSAPP */
+
+document.getElementById("whatsappButton").onclick = function(){
+
+    let name =
+        document.getElementById("name").value.trim();
+
+    let phone =
+        document.getElementById("phone").value.trim();
+
+    let address =
+        document.getElementById("address").value.trim();
+
+    let total =
+        (count100 * price100) +
+        (count150 * price150);
+
+
+    if(count100 === 0 && count150 === 0){
+
+        alert("Lütfen en az bir ürün seçin.");
+
+        return;
+    }
+
+
+    if(name === "" || phone === "" || address === ""){
+
+        alert("Lütfen ad, telefon ve adres bilgilerinizi doldurun.");
+
+        return;
+    }
+
+
+    let message =
+        "🌯 DÖNERGO SİPARİŞİ%0A%0A" +
+
+        "👤 Ad Soyad: " + name + "%0A" +
+
+        "📞 Telefon: " + phone + "%0A%0A" +
+
+        "🍗 100 g Tavuk Döner: " +
+        count100 + " adet%0A" +
+
+        "🍗 150 g Tavuk Döner: " +
+        count150 + " adet%0A%0A" +
+
+        "💰 TOPLAM: " + total + " TL%0A%0A" +
+
+        "📍 Adres:%0A" +
+        address;
+
+
+    /*
+       BURAYA KENDİ WHATSAPP NUMARANI YAZACAKSIN.
+
+       Örnek:
+       905321234567
+    */
+
+    let whatsappNumber =
+        "905XXXXXXXXX";
+
+
+    let url =
+        "https://wa.me/" +
+        whatsappNumber +
+        "?text=" +
+        message;
+
+
+    window.open(url, "_blank");
+};
+
+
+update();
+
+</script>
+
+</body>
+</html>
